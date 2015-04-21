@@ -1,6 +1,0 @@
-{
-  "id": "users",
-  "user_name" : "fspadmin",
-  "comment": "admin user",
-  "ssh_keys": ["ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAi/+qO5bvIM5cElxGkvbogYWOxgYmSClsrdCO4XHanBXam4lEO0Chz8Y1bQ3ACUsagzQAA4whTdCK++umi0HuESXyDuExsw+SClWjMqflSjN4+3EKr3pK/KPoGcBvDByNRtXWSpCh2O/MS8PZsLS32KBm678bvUMJY8Q7Jom5eLRIJ2vjLVPI36V4f0EqG1+HbejWJRlXJdaroV5J35ZLzYybn25B1JDZcjoPKBS7Xw3uBdOUDzp8iXgHThovD0ZS3b5S9daA+vFP1GtNABl/X5LR8XB1n7YCg2oL6k/FxbnqmuEMCtU4idW35MxDx2H2Nd267Svw886Wr+KYq3VbzQ=="]
-}
