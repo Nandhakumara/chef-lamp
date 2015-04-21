@@ -1,0 +1,43 @@
+<% if @port !=80 %>
+  Listen <%= @port %>
+<% end %>
+<VirtualHost *:<%= @port %>>
+    ServerAdmin nandhakumara@farshore.com
+    DocumentRoot <%= @document_root %>
+    HostnameLookups Off
+    LogLevel warn
+    SetEnvIf Remote_Addr "127\.0\.0\.1" dontlog
+    LogFormat "%{X-Forwarded-For}i %h %l %u %t \"%r\" %>s \"%{Referer}i\" \"%{User-Agent}i\"" combined
+
+    <Directory <%= @document_root %>>
+      Options -Indexes FollowSymLinks
+      AllowOverride ALL
+      order allow,deny
+      Allow from all
+    </Directory>
+
+    <Location /cgi-bin>
+      Order deny,allow
+      Deny from all
+      Allow from localhost
+    </Location>
+    <Location /scripts>
+      Order deny,allow
+      Deny from all
+      Allow from localhost
+    </Location>
+
+    # Block access to sensitive (misplaced) files
+    <FilesMatch "\.(sql|htaccess|HTPASSWD|mdb|zip|svn)$">
+      Order allow,deny
+      Deny from all
+    </FilesMatch>
+
+   <% if @port == 443 %>
+      SSLEngine ON
+      SSLCertificateFile ssl.crt/
+      SSLCertificateKeyFile ssl.crt/
+      SSLCertificateChainFile ssl.crt/
+   <% end %>
+
+</VirtualHost>

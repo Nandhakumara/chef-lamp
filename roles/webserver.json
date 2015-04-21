@@ -1,0 +1,11 @@
+{
+  "name" : "webserver",
+  "default_attributes" : {
+    "apache" : {
+      "greeting" : "webserver chef"
+    }
+  },
+  "run_list" : [
+  "recipe[fsp-apache]"
+  ]
+}

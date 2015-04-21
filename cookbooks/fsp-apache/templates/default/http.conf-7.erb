@@ -1,0 +1,95 @@
+ServerSignature off
+ServerTokens Prod
+ServerRoot "/etc/httpd"
+PidFile run/httpd.pid
+Timeout 120
+KeepAlive On
+MaxKeepAliveRequests 200
+KeepAliveTimeout 2
+<IfModule prefork.c>
+        StartServers       3
+        MinSpareServers    2
+        MaxSpareServers    5
+        ServerLimit      256
+        MaxClients       256
+        MaxRequestsPerChild  4000
+</IfModule>
+Listen *:80
+
+Include conf.modules.d/*.conf
+
+Include conf.d/*.conf
+
+
+#ExtendedStatus On
+
+# Disable Trace/Track
+TraceEnable off
+
+# Disable ETag
+# http://www.askapache.com/htaccess/apache-speed-etags.html
+Header unset ETag
+FileETag None
+# Disable Server
+Header unset Server
+
+
+User apache
+Group apache
+
+### Section 2: 'Main' server configuration
+ServerAdmin nandhakumara@farshore.com
+ServerName 127.0.0.1
+UseCanonicalName Off
+
+DocumentRoot "/var/www/html"
+<Directory />
+    Options None
+    Order deny,allow
+    Deny from all
+</Directory>
+
+<Directory "/var/www/html">
+    Options Indexes FollowSymLinks
+    AllowOverride None
+    Order allow,deny
+    Allow from all
+</Directory>
+
+DirectoryIndex index.html index.html.var index.htm
+
+AccessFileName .htaccess
+<Files ~ "^\.ht">
+    Order allow,deny
+    Deny from all
+</Files>
+
+TypesConfig /etc/mime.types
+HostnameLookups Off
+
+EnableSendfile on
+
+LogLevel warn
+LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+ErrorLog /var/log/httpd/error_log
+CustomLog /var/log/httpd/access_log combined
+
+<FilesMatch \.php$>
+SetHandler application/x-httpd-php
+</FilesMatch>
+
+<FilesMatch ".(js|css|xml|gz|html)$">
+  Header append Vary: Accept-Encoding
+</FilesMatch>
+
+# Block access to sensitive (misplaced) files
+<FilesMatch "\.(sql|htaccess|HTPASSWD|csv|xml|mdb|svn)$|\.git">
+  Order deny,allow
+  Deny from all
+</FilesMatch>
+
+<DirectoryMatch "\.(svn|git)/.*">
+  Deny From All
+</DirectoryMatch>
+
+Include vhosts.d/*.conf

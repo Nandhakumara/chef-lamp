@@ -1,0 +1,15 @@
+[mysqld]
+
+join_buffer_size      = 128M
+sort_buffer_size      = 2M
+read_rnd_buffer_size  = 2M
+datadir               = /var/lib/mysql
+socket                = /var/lib/mysql/mysql.sock
+symbolic-links        = 0
+sql_mode              = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+bind-address          = 127.0.0.1
+port                  = 3306
+
+[mysqld_safe]
+log-error       = /var/log/mysqld.log
+pid-file        = /var/run/mysqld/mysqld.pid

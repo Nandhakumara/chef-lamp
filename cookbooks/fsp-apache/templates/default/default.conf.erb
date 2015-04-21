@@ -1,0 +1,34 @@
+<VirtualHost *:80 >
+        DocumentRoot /var/www/html
+        ServerAdmin nandhakumara@farshore.com
+        ServerSignature Off
+
+        LogLevel warn
+        LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" combined
+        ErrorLog /var/log/httpd/error_log
+        CustomLog /var/log/httpd/access_log combined
+
+        <Directory "/var/www/html">
+                Options -Indexes -FollowSymLinks
+                AllowOverride None
+                Order deny,allow
+                Allow from all
+        </Directory>
+
+        # Block access to sensitive (misplaced) files
+        <FilesMatch "\.(sql|htaccess|HTPASSWD|csv|xml|mdb|svn)$|\.git">
+                Order deny,allow
+                Deny from all
+        </FilesMatch>
+
+        <DirectoryMatch "\.(svn|git)/.*">
+            Deny From All
+        </DirectoryMatch>
+
+        <Location />
+                AuthType Basic
+                AuthName "Require Validation"
+                AuthUserFile /etc/httpd/conf/auth
+                Require valid-user
+        </Location>
+</VirtualHost>

@@ -1,0 +1,15 @@
+{
+  "name" : "lamp",
+  "default_attributes" : {
+    "lamp" : {
+      "greeting" : "Welcome to chef Automation "
+    }
+  },
+  "run_list" : [
+  "recipe[fsp-repo]",
+  "recipe[fsp-apache]",
+  "recipe[fsp-php]",
+  "recipe[fsp-mysql]",
+  "recipe[security-hardening]"
+  ]
+}
