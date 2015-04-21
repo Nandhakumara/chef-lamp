@@ -8,4 +8,4 @@ version          '1.0.0'
 
 depends 'fsp-repo'
 depends 'fsp-apache'
-
+depends 'fsp-mysql

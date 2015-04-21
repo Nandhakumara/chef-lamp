@@ -30,3 +30,11 @@ template node['fsp-apache']['conf_file'] do
   mode "0644"
   notifies :restart, 'service[httpd]'
 end
+
+package "ntp" do
+  action :install
+end
+
+service "ntpd" do
+  action [:enable, :start]
+end
